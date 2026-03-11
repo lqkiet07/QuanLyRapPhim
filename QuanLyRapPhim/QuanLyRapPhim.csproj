@@ -80,6 +80,7 @@
   <ItemGroup>
     <Folder Include="BLL\" />
     <Folder Include="BUS\" />
+    <Folder Include="Database\" />
     <Folder Include="DTO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
