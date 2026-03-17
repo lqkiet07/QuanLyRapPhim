@@ -46,13 +46,76 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <!-- DAL -->
     <Compile Include="DAL\DataProvider.cs" />
+    <Compile Include="DAL\NhanVienDAL.cs" />
+    <Compile Include="DAL\TheLoaiDAL.cs" />
+    <Compile Include="DAL\PhimDAL.cs" />
+    <Compile Include="DAL\LoaiGheDAL.cs" />
+    <Compile Include="DAL\PhongChieuDAL.cs" />
+    <Compile Include="DAL\GheDAL.cs" />
+    <Compile Include="DAL\SuatChieuDAL.cs" />
+    <Compile Include="DAL\VeDAL.cs" />
+    <!-- DTO -->
+    <Compile Include="DTO\PhimDTO.cs" />
+    <Compile Include="DTO\TheLoaiDTO.cs" />
+    <Compile Include="DTO\PhongChieuDTO.cs" />
+    <Compile Include="DTO\GheDTO.cs" />
+    <Compile Include="DTO\LoaiGheDTO.cs" />
+    <Compile Include="DTO\SuatChieuDTO.cs" />
+    <Compile Include="DTO\VeDTO.cs" />
+    <Compile Include="DTO\NhanVienDTO.cs" />
+    <Compile Include="DTO\LoaiNVDTO.cs" />
+    <!-- BUS -->
+    <Compile Include="BUS\NhanVienBUS.cs" />
+    <Compile Include="BUS\PhimBUS.cs" />
+    <Compile Include="BUS\PhongChieuBUS.cs" />
+    <Compile Include="BUS\SuatChieuBUS.cs" />
+    <Compile Include="BUS\VeBUS.cs" />
+    <!-- GUI -->
     <Compile Include="GUI\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmQuanLyPhim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmQuanLyPhim.Designer.cs">
+      <DependentUpon>frmQuanLyPhim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmQuanLyPhongChieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmQuanLyPhongChieu.Designer.cs">
+      <DependentUpon>frmQuanLyPhongChieu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmQuanLySuatChieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmQuanLySuatChieu.Designer.cs">
+      <DependentUpon>frmQuanLySuatChieu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmBanVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmBanVe.Designer.cs">
+      <DependentUpon>frmBanVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmQuanLyNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmQuanLyNhanVien.Designer.cs">
+      <DependentUpon>frmQuanLyNhanVien.cs</DependentUpon>
+    </Compile>
+    <!-- Core -->
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -78,10 +141,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BLL\" />
-    <Folder Include="BUS\" />
     <Folder Include="Database\" />
-    <Folder Include="DTO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-</Project>
+</Project>
