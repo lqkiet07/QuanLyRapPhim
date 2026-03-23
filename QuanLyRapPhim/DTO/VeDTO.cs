@@ -11,7 +11,7 @@ namespace QuanLyRapPhim.DTO
         public DateTime NgayBan { get; set; }
         public decimal TongTien { get; set; }
 
-        // Dùng để hiển thị
+        //obj for display properties
         public string MaGhe { get; set; }
         public string TenPhim { get; set; }
         public string TenPhong { get; set; }
