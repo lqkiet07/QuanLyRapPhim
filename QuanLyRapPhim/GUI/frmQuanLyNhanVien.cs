@@ -26,7 +26,7 @@ namespace QuanLyRapPhim
 
         private void LoadLoaiNV()
         {
-            //obj for load employee types from database
+            //load danh sách loại nhân viên từ database
             var dal = new QuanLyRapPhim.DAL.NhanVienDAL();
             var loais = dal.GetAllLoaiNV();
             cboLoai.DataSource = loais;

@@ -30,7 +30,7 @@ namespace QuanLyRapPhim
         private void frmBanVe_Load(object sender, EventArgs e)
         {
             lblChuThich.Paint += LblChuThich_Paint;
-            //obj for load movie list into combobox
+            //load danh sách phim vào combobox
             var phims = _bus.GetPhimDangChieu();
             cboPhim.DataSource = phims;
             cboPhim.DisplayMember = "TenPhim";
@@ -58,7 +58,7 @@ namespace QuanLyRapPhim
             x += TextRenderer.MeasureText(text, lblChuThich.Font).Width + 35;
         }
 
-        //obj for load showtimes by selected movie
+        //load suất chiếu theo phim đã chọn
         private void cboPhim_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboPhim.SelectedItem is PhimDTO phim)
@@ -68,7 +68,7 @@ namespace QuanLyRapPhim
                 cboSuatChieu.DisplayMember = "MoTa";
                 cboSuatChieu.ValueMember = "Id";
 
-                //obj for auto load seats for first showtime
+                //tự động load ghế cho suất chiếu đầu tiên
                 if (suats.Count > 0)
                 {
                     cboSuatChieu.SelectedIndex = 0;

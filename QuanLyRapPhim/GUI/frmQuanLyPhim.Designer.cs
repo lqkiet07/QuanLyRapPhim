@@ -228,7 +228,7 @@ namespace QuanLyRapPhim
             // cboTheLoai
             // 
             this.cboTheLoai.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTheLoai.Location = new System.Drawing.Point(13, 289);
+            this.cboTheLoai.Location = new System.Drawing.Point(13, 294);
             this.cboTheLoai.Margin = new System.Windows.Forms.Padding(4);
             this.cboTheLoai.Name = "cboTheLoai";
             this.cboTheLoai.Size = new System.Drawing.Size(459, 24);
@@ -264,7 +264,7 @@ namespace QuanLyRapPhim
             // dtpKetThuc
             // 
             this.dtpKetThuc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpKetThuc.Location = new System.Drawing.Point(13, 425);
+            this.dtpKetThuc.Location = new System.Drawing.Point(13, 433);
             this.dtpKetThuc.Margin = new System.Windows.Forms.Padding(4);
             this.dtpKetThuc.Name = "dtpKetThuc";
             this.dtpKetThuc.Size = new System.Drawing.Size(459, 22);

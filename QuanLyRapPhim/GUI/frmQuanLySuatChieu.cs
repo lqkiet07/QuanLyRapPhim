@@ -113,5 +113,10 @@ namespace QuanLyRapPhim
         }
 
         private void btnLamMoi_Click(object sender, EventArgs e) { LoadData(); ClearInput(); }
+
+        private void dtpThoiGian_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

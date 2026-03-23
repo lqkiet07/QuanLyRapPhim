@@ -11,6 +11,8 @@ namespace QuanLyRapPhim
         #region Windows Form Designer generated code
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelInput = new System.Windows.Forms.Panel();
             this.lblTitle2 = new System.Windows.Forms.Label();
             this.lblPhim = new System.Windows.Forms.Label();
@@ -132,7 +134,7 @@ namespace QuanLyRapPhim
             // 
             // lblThoiGian
             // 
-            this.lblThoiGian.Location = new System.Drawing.Point(13, 265);
+            this.lblThoiGian.Location = new System.Drawing.Point(10, 265);
             this.lblThoiGian.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblThoiGian.Name = "lblThoiGian";
             this.lblThoiGian.Size = new System.Drawing.Size(107, 25);
@@ -143,12 +145,13 @@ namespace QuanLyRapPhim
             // 
             this.dtpThoiGian.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dtpThoiGian.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpThoiGian.Location = new System.Drawing.Point(13, 289);
+            this.dtpThoiGian.Location = new System.Drawing.Point(13, 294);
             this.dtpThoiGian.Margin = new System.Windows.Forms.Padding(4);
             this.dtpThoiGian.Name = "dtpThoiGian";
             this.dtpThoiGian.Size = new System.Drawing.Size(425, 22);
             this.dtpThoiGian.TabIndex = 8;
             this.dtpThoiGian.Value = new System.DateTime(2026, 3, 20, 10, 0, 34, 164);
+            this.dtpThoiGian.ValueChanged += new System.EventHandler(this.dtpThoiGian_ValueChanged);
             // 
             // chkDangChieu
             // 
@@ -290,7 +293,8 @@ namespace QuanLyRapPhim
             // ThoiGian
             // 
             this.ThoiGian.DataPropertyName = "ThoiGian";
-            this.ThoiGian.DefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle { Format = "dd/MM/yyyy HH:mm" };
+            dataGridViewCellStyle17.Format = "dd/MM/yyyy HH:mm";
+            this.ThoiGian.DefaultCellStyle = dataGridViewCellStyle17;
             this.ThoiGian.HeaderText = "Thời Gian";
             this.ThoiGian.MinimumWidth = 6;
             this.ThoiGian.Name = "ThoiGian";
@@ -299,7 +303,8 @@ namespace QuanLyRapPhim
             // GiaVe
             // 
             this.GiaVe.DataPropertyName = "GiaVe";
-            this.GiaVe.DefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle { Format = "N0" };
+            dataGridViewCellStyle18.Format = "N0";
+            this.GiaVe.DefaultCellStyle = dataGridViewCellStyle18;
             this.GiaVe.HeaderText = "Giá Vé";
             this.GiaVe.MinimumWidth = 6;
             this.GiaVe.Name = "GiaVe";

@@ -183,7 +183,7 @@ namespace QuanLyRapPhim
             // cboLoai
             // 
             this.cboLoai.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboLoai.Location = new System.Drawing.Point(13, 289);
+            this.cboLoai.Location = new System.Drawing.Point(16, 294);
             this.cboLoai.Margin = new System.Windows.Forms.Padding(4);
             this.cboLoai.Name = "cboLoai";
             this.cboLoai.Size = new System.Drawing.Size(405, 24);

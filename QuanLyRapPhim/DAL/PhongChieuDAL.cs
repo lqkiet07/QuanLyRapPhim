@@ -15,7 +15,7 @@ namespace QuanLyRapPhim.DAL
             return list;
         }
 
-        //obj for return new room ID after insert
+        //trả về ID phòng mới sau khi thêm
         public int Insert(PhongChieuDTO p)
         {
             string query = @"INSERT INTO PhongChieu(TenPhong, SoCho, TinhTrang) VALUES(@TenPhong, @SoCho, @TinhTrang);

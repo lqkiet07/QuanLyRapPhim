@@ -25,7 +25,7 @@ namespace QuanLyRapPhim.BUS
             if (newId <= 0)
                 return (false, "Thêm thất bại!");
 
-            //obj for auto generate seats by rows
+            //tự động tạo ghế theo hàng
             int gheConLai = phong.SoCho;
             int soCotMoiHang = 6;
             int hangIndex = 0;
@@ -33,7 +33,7 @@ namespace QuanLyRapPhim.BUS
             int idThuong = loaiGhes.Count > 0 ? loaiGhes[0].Id : 1;
             int idVIP = loaiGhes.Count > 1 ? loaiGhes[1].Id : idThuong;
 
-            //obj for calculate total rows
+            //tính tổng số hàng
             int tongHang = (gheConLai + soCotMoiHang - 1) / soCotMoiHang;
 
             while (gheConLai > 0)

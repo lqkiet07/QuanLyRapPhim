@@ -16,7 +16,7 @@ namespace QuanLyRapPhim.DTO
 
         public string TrangThaiText => TrangThai ? "Đang chiếu" : "Kết thúc";
 
-        //obj for display in ComboBox
+        //hiển thị trong ComboBox
         public string MoTa => TenPhong;
 
         public override string ToString() =>

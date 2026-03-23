@@ -66,7 +66,7 @@ namespace QuanLyRapPhim
             txtTenPhim.Text = p.TenPhim;
             txtThoiLuong.Text = p.ThoiLuong.ToString();
             txtDaoDien.Text = p.DaoDien;
-            //obj for sync checkbox state with data
+            //đồng bộ trạng thái checkbox với dữ liệu
             chkKhoiChieu.Checked = p.NgayKhoiChieu.HasValue;
             chkKetThuc.Checked = p.NgayKetThuc.HasValue;
             dtpKhoiChieu.Value = p.NgayKhoiChieu ?? DateTime.Today;

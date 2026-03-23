@@ -74,8 +74,8 @@ namespace QuanLyRapPhim
             // txtTaiKhoan
             // 
             this.txtTaiKhoan.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtTaiKhoan.Location = new System.Drawing.Point(27, 142);
-            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTaiKhoan.Location = new System.Drawing.Point(27, 146);
+            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTaiKhoan.Name = "txtTaiKhoan";
             this.txtTaiKhoan.Size = new System.Drawing.Size(452, 32);
             this.txtTaiKhoan.TabIndex = 2;
@@ -84,8 +84,8 @@ namespace QuanLyRapPhim
             // txtMatKhau
             // 
             this.txtMatKhau.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtMatKhau.Location = new System.Drawing.Point(27, 228);
-            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMatKhau.Location = new System.Drawing.Point(27, 232);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.PasswordChar = '●';
             this.txtMatKhau.Size = new System.Drawing.Size(452, 32);
@@ -99,7 +99,7 @@ namespace QuanLyRapPhim
             this.btnDangNhap.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnDangNhap.ForeColor = System.Drawing.Color.White;
             this.btnDangNhap.Location = new System.Drawing.Point(27, 295);
-            this.btnDangNhap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDangNhap.Margin = new System.Windows.Forms.Padding(4);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(213, 55);
             this.btnDangNhap.TabIndex = 5;
@@ -113,8 +113,8 @@ namespace QuanLyRapPhim
             this.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThoat.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnThoat.ForeColor = System.Drawing.Color.White;
-            this.btnThoat.Location = new System.Drawing.Point(267, 295);
-            this.btnThoat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnThoat.Location = new System.Drawing.Point(266, 295);
+            this.btnThoat.Margin = new System.Windows.Forms.Padding(4);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(213, 55);
             this.btnThoat.TabIndex = 6;
@@ -134,7 +134,7 @@ namespace QuanLyRapPhim
             this.panelMain.Controls.Add(this.btnDangNhap);
             this.panelMain.Controls.Add(this.btnThoat);
             this.panelMain.Location = new System.Drawing.Point(67, 74);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(506, 393);
             this.panelMain.TabIndex = 0;
@@ -148,7 +148,7 @@ namespace QuanLyRapPhim
             this.ClientSize = new System.Drawing.Size(640, 542);
             this.Controls.Add(this.panelMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -156,6 +156,7 @@ namespace QuanLyRapPhim
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion

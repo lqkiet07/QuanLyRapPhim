@@ -38,12 +38,13 @@ namespace QuanLyRapPhim
             this.panelTop.Controls.Add(this.lblThongTin);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(4);
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1333, 104);
             this.panelTop.TabIndex = 1;
             // 
             // lblPhim
+            // 
             this.lblPhim.Location = new System.Drawing.Point(13, 12);
             this.lblPhim.Name = "lblPhim";
             this.lblPhim.Size = new System.Drawing.Size(80, 25);
@@ -72,7 +73,7 @@ namespace QuanLyRapPhim
             // cboSuatChieu
             // 
             this.cboSuatChieu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboSuatChieu.Location = new System.Drawing.Point(350, 37);
+            this.cboSuatChieu.Location = new System.Drawing.Point(353, 37);
             this.cboSuatChieu.Margin = new System.Windows.Forms.Padding(4);
             this.cboSuatChieu.Name = "cboSuatChieu";
             this.cboSuatChieu.Size = new System.Drawing.Size(330, 24);
@@ -95,7 +96,7 @@ namespace QuanLyRapPhim
             this.panelGhe.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.panelGhe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelGhe.Location = new System.Drawing.Point(0, 111);
-            this.panelGhe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelGhe.Margin = new System.Windows.Forms.Padding(4);
             this.panelGhe.Name = "panelGhe";
             this.panelGhe.Size = new System.Drawing.Size(1333, 529);
             this.panelGhe.TabIndex = 0;
@@ -109,7 +110,7 @@ namespace QuanLyRapPhim
             this.panelBottom.Controls.Add(this.btnBanVe);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBottom.Location = new System.Drawing.Point(0, 640);
-            this.panelBottom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelBottom.Margin = new System.Windows.Forms.Padding(4);
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(1333, 98);
             this.panelBottom.TabIndex = 2;
@@ -155,7 +156,7 @@ namespace QuanLyRapPhim
             this.btnBanVe.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnBanVe.ForeColor = System.Drawing.Color.White;
             this.btnBanVe.Location = new System.Drawing.Point(1133, 18);
-            this.btnBanVe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBanVe.Margin = new System.Windows.Forms.Padding(4);
             this.btnBanVe.Name = "btnBanVe";
             this.btnBanVe.Size = new System.Drawing.Size(173, 62);
             this.btnBanVe.TabIndex = 3;
@@ -172,7 +173,7 @@ namespace QuanLyRapPhim
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.panelBottom);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmBanVe";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

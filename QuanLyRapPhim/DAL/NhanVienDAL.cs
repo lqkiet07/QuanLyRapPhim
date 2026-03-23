@@ -32,7 +32,7 @@ namespace QuanLyRapPhim.DAL
             return list;
         }
 
-        //obj for load employee types from database
+        //load danh sách loại nhân viên từ database
         public List<LoaiNVDTO> GetAllLoaiNV()
         {
             DataTable dt = DataProvider.Instance.ExecuteQuery("SELECT id, TenLoaiNV FROM LoaiNV ORDER BY id");

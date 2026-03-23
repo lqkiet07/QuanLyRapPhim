@@ -136,7 +136,7 @@ namespace QuanLyRapPhim
             this.btnDangXuat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDangXuat.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnDangXuat.ForeColor = System.Drawing.Color.White;
-            this.btnDangXuat.Location = new System.Drawing.Point(13, 652);
+            this.btnDangXuat.Location = new System.Drawing.Point(5, 618);
             this.btnDangXuat.Margin = new System.Windows.Forms.Padding(4);
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Padding = new System.Windows.Forms.Padding(13, 0, 0, 0);
