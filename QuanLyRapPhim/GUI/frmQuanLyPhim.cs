@@ -11,6 +11,7 @@ namespace QuanLyRapPhim
         private readonly PhimBUS _bus = new PhimBUS();
         private List<PhimDTO> _danhSachPhim;
         private PhimDTO _selected;
+        private bool _isClearing = false;
 
         public frmQuanLyPhim()
         {
@@ -34,37 +35,30 @@ namespace QuanLyRapPhim
         private void LoadPhim()
         {
             _danhSachPhim = _bus.GetAll();
+            dgvPhim.AutoGenerateColumns = false;
             dgvPhim.DataSource = null;
             dgvPhim.DataSource = _danhSachPhim;
-            ConfigGrid();
             lblCount.Text = $"Tổng: {_danhSachPhim.Count} phim";
         }
 
-        private void ConfigGrid()
-        {
-            if (dgvPhim.Columns.Count == 0) return;
-            dgvPhim.Columns["Id"].Visible = false;
-            dgvPhim.Columns["IdTheLoai"].Visible = false;
-            dgvPhim.Columns["TenPhim"].HeaderText = "Tên Phim";
-            dgvPhim.Columns["ThoiLuong"].HeaderText = "Thời Lượng (phút)";
-            dgvPhim.Columns["NgayKhoiChieu"].HeaderText = "Ngày Khởi Chiếu";
-            dgvPhim.Columns["NgayKetThuc"].HeaderText = "Ngày Kết Thúc";
-            dgvPhim.Columns["DaoDien"].HeaderText = "Đạo Diễn";
-            dgvPhim.Columns["TenTheLoai"].HeaderText = "Thể Loại";
-        }
 
         private void ClearInput()
         {
+            _isClearing = true;
             txtTenPhim.Clear();
             txtThoiLuong.Clear();
             txtDaoDien.Clear();
+            chkKhoiChieu.Checked = false;
+            chkKetThuc.Checked = false;
             dtpKhoiChieu.Value = DateTime.Today;
             dtpKetThuc.Value = DateTime.Today.AddMonths(1);
             if (cboTheLoai.Items.Count > 0) cboTheLoai.SelectedIndex = 0;
             _selected = null;
+            dgvPhim.ClearSelection();
             btnThem.Enabled = true;
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
+            _isClearing = false;
         }
 
         private void FillInput(PhimDTO p)
@@ -72,6 +66,9 @@ namespace QuanLyRapPhim
             txtTenPhim.Text = p.TenPhim;
             txtThoiLuong.Text = p.ThoiLuong.ToString();
             txtDaoDien.Text = p.DaoDien;
+            //obj for sync checkbox state with data
+            chkKhoiChieu.Checked = p.NgayKhoiChieu.HasValue;
+            chkKetThuc.Checked = p.NgayKetThuc.HasValue;
             dtpKhoiChieu.Value = p.NgayKhoiChieu ?? DateTime.Today;
             dtpKetThuc.Value = p.NgayKetThuc ?? DateTime.Today.AddMonths(1);
             cboTheLoai.SelectedValue = p.IdTheLoai;
@@ -93,6 +90,7 @@ namespace QuanLyRapPhim
 
         private void dgvPhim_SelectionChanged(object sender, EventArgs e)
         {
+            if (_isClearing) return;
             if (dgvPhim.CurrentRow?.DataBoundItem is PhimDTO p)
             {
                 _selected = p;
@@ -134,8 +132,8 @@ namespace QuanLyRapPhim
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            ClearInput();
             LoadPhim();
+            ClearInput();
         }
 
         private void txtTimKiem_TextChanged(object sender, EventArgs e)

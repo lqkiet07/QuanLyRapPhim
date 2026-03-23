@@ -14,7 +14,7 @@ namespace QuanLyRapPhim
         private SuatChieuDTO _suatChieu;
         private List<GheDTO> _danhSachGhe;
         private List<int> _gheDaBan;
-        private GheDTO _gheChon;
+        private List<GheDTO> _gheChonList = new List<GheDTO>();
 
         private static readonly Color C_TRONG = Color.FromArgb(100, 180, 100);
         private static readonly Color C_DA_BAN = Color.FromArgb(180, 60, 60);
@@ -29,10 +29,63 @@ namespace QuanLyRapPhim
 
         private void frmBanVe_Load(object sender, EventArgs e)
         {
-            var list = _bus.GetSuatChieuDangChieu();
-            cboSuatChieu.DataSource = list;
-            cboSuatChieu.DisplayMember = "ToString";
-            cboSuatChieu.ValueMember = "Id";
+            lblChuThich.Paint += LblChuThich_Paint;
+            //obj for load movie list into combobox
+            var phims = _bus.GetPhimDangChieu();
+            cboPhim.DataSource = phims;
+            cboPhim.DisplayMember = "TenPhim";
+            cboPhim.ValueMember = "Id";
+        }
+
+        private void LblChuThich_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            int x = 0;
+            DrawLegend(g, ref x, "Trống", C_TRONG);
+            DrawLegend(g, ref x, "Đã bán", C_DA_BAN);
+            DrawLegend(g, ref x, "Đang chọn", C_CHON);
+            DrawLegend(g, ref x, "VIP", C_VIP);
+        }
+
+        private void DrawLegend(Graphics g, ref int x, string text, Color color)
+        {
+            using (var brush = new SolidBrush(color))
+            {
+                g.FillRectangle(brush, x, 4, 16, 16);
+            }
+            TextRenderer.DrawText(g, text, lblChuThich.Font, new Point(x + 20, 3), Color.White);
+            x += TextRenderer.MeasureText(text, lblChuThich.Font).Width + 35;
+        }
+
+        //obj for load showtimes by selected movie
+        private void cboPhim_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboPhim.SelectedItem is PhimDTO phim)
+            {
+                var suats = _bus.GetSuatChieuByPhim(phim.Id);
+                cboSuatChieu.DataSource = suats;
+                cboSuatChieu.DisplayMember = "MoTa";
+                cboSuatChieu.ValueMember = "Id";
+
+                //obj for auto load seats for first showtime
+                if (suats.Count > 0)
+                {
+                    cboSuatChieu.SelectedIndex = 0;
+                    _suatChieu = suats[0];
+                    lblThongTin.Text = $"Phòng: {_suatChieu.TenPhong}  |  Giờ: {_suatChieu.ThoiGian:dd/MM/yyyy HH:mm}  |  Giá vé: {_suatChieu.GiaVe:N0} đ";
+                    LoadGhe(_suatChieu.Id, _suatChieu.IdPhong);
+                }
+                else
+                {
+                    panelGhe.Controls.Clear();
+                    lblThongTin.Text = "Không có suất chiếu nào cho phim này";
+                    lblGheChon.Text = "Ghế đã chọn: (chưa chọn)";
+                    lblTongTien.Text = "Tổng tiền: --";
+                    btnBanVe.Enabled = false;
+                    _gheChonList.Clear();
+                }
+            }
         }
 
         private void cboSuatChieu_SelectedIndexChanged(object sender, EventArgs e)
@@ -40,7 +93,7 @@ namespace QuanLyRapPhim
             if (cboSuatChieu.SelectedItem is SuatChieuDTO sc)
             {
                 _suatChieu = sc;
-                lblThongTin.Text = $"Phim: {sc.TenPhim}  |  Phòng: {sc.TenPhong}  |  Giờ: {sc.ThoiGian:dd/MM/yyyy HH:mm}  |  Giá vé: {sc.GiaVe:N0} đ";
+                lblThongTin.Text = $"Phòng: {sc.TenPhong}  |  Giờ: {sc.ThoiGian:dd/MM/yyyy HH:mm}  |  Giá vé: {sc.GiaVe:N0} đ";
                 LoadGhe(sc.Id, sc.IdPhong);
             }
         }
@@ -49,7 +102,7 @@ namespace QuanLyRapPhim
         {
             _danhSachGhe = new List<GheDTO>();
             _gheDaBan = _bus.GetGheDaBan(idSuatChieu);
-            _gheChon = null;
+            _gheChonList.Clear();
             lblGheChon.Text = "Ghế đã chọn: (chưa chọn)";
             lblTongTien.Text = "Tổng tiền: --";
             btnBanVe.Enabled = false;
@@ -102,33 +155,62 @@ namespace QuanLyRapPhim
 
         private void Ghe_Click(object sender, EventArgs e)
         {
-            foreach (Control ctrl in panelGhe.Controls)
-            {
-                if (ctrl is Button b && b.Tag is GheDTO g)
-                {
-                    if (!_gheDaBan.Contains(g.Id))
-                        b.BackColor = g.PhuPhi > 0 ? C_VIP : C_TRONG;
-                }
-            }
             var btn = (Button)sender;
-            _gheChon = (GheDTO)btn.Tag;
-            btn.BackColor = C_CHON;
-            btn.ForeColor = Color.Black;
+            var ghe = (GheDTO)btn.Tag;
 
-            decimal tongTien = _suatChieu.GiaVe + _gheChon.PhuPhi;
-            lblGheChon.Text = $"Ghế đã chọn: {_gheChon.MaGhe} ({_gheChon.TenLoaiGhe})";
+            if (_gheChonList.Contains(ghe))
+            {
+                // Đoạn này là bỏ chọn ghế
+                _gheChonList.Remove(ghe);
+                btn.BackColor = ghe.PhuPhi > 0 ? C_VIP : C_TRONG;
+                btn.ForeColor = Color.White;
+            }
+            else
+            {
+                // Đoạn này là thêm ghế vào danh sách
+                _gheChonList.Add(ghe);
+                btn.BackColor = C_CHON;
+                btn.ForeColor = Color.Black;
+            }
+
+            if (_gheChonList.Count == 0)
+            {
+                lblGheChon.Text = "Ghế đã chọn: (chưa chọn)";
+                lblTongTien.Text = "Tổng tiền: --";
+                btnBanVe.Enabled = false;
+                return;
+            }
+
+            decimal tongTien = 0;
+            var tenGhes = new List<string>();
+            foreach (var g in _gheChonList)
+            {
+                tongTien += _suatChieu.GiaVe + g.PhuPhi;
+                tenGhes.Add(g.MaGhe);
+            }
+
+            lblGheChon.Text = $"Ghế đã chọn: {string.Join(", ", tenGhes)}";
             lblTongTien.Text = $"Tổng tiền: {tongTien:N0} đ";
             btnBanVe.Enabled = true;
         }
 
         private void btnBanVe_Click(object sender, EventArgs e)
         {
-            if (_gheChon == null || _suatChieu == null) return;
-            decimal tongTien = _suatChieu.GiaVe + _gheChon.PhuPhi;
-            if (MessageBox.Show($"Xác nhận bán vé ghế {_gheChon.MaGhe} = {tongTien:N0} đ?",
+            if (_gheChonList.Count == 0 || _suatChieu == null) return;
+            
+            decimal tongTien = 0;
+            var tenGhes = new List<string>();
+            foreach (var g in _gheChonList)
+            {
+                tongTien += _suatChieu.GiaVe + g.PhuPhi;
+                tenGhes.Add(g.MaGhe);
+            }
+
+            string dsGhe = string.Join(", ", tenGhes);
+            if (MessageBox.Show($"Xác nhận bán {tenGhes.Count} vé (Ghế: {dsGhe})\nTổng tiền = {tongTien:N0} đ?",
                 "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var (ok, msg) = _bus.BanVe(_suatChieu.Id, _gheChon.Id, _nhanVien.Id, tongTien);
+                var (ok, msg) = _bus.BanTapTheVe(_suatChieu.Id, _gheChonList, _nhanVien.Id, _suatChieu.GiaVe);
                 MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, ok ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
                 if (ok) LoadGhe(_suatChieu.Id, _suatChieu.IdPhong);
             }

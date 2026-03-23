@@ -12,7 +12,6 @@ namespace QuanLyRapPhim.DTO
         public string DaoDien { get; set; }
         public int IdTheLoai { get; set; }
 
-        // Dùng để hiển thị trên DataGridView
         public string TenTheLoai { get; set; }
 
         public override string ToString() => TenPhim;

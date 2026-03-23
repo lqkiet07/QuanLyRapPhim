@@ -18,8 +18,8 @@ namespace QuanLyRapPhim.BUS
 
         public (bool success, string message) Insert(SuatChieuDTO sc)
         {
-            if (sc.IdPhim <= 0) return (false, "Vui lòng chọn phim!");
-            if (sc.IdPhong <= 0) return (false, "Vui lòng chọn phòng chiếu!");
+            if (sc.IdPhim < 0) return (false, "Vui lòng chọn phim!");
+            if (sc.IdPhong < 0) return (false, "Vui lòng chọn phòng chiếu!");
             if (sc.GiaVe <= 0) return (false, "Giá vé phải lớn hơn 0!");
             if (sc.ThoiGian <= DateTime.Now)
                 return (false, "Thời gian chiếu phải sau thời điểm hiện tại!");
@@ -30,8 +30,8 @@ namespace QuanLyRapPhim.BUS
 
         public (bool success, string message) Update(SuatChieuDTO sc)
         {
-            if (sc.IdPhim <= 0) return (false, "Vui lòng chọn phim!");
-            if (sc.IdPhong <= 0) return (false, "Vui lòng chọn phòng chiếu!");
+            if (sc.IdPhim < 0) return (false, "Vui lòng chọn phim!");
+            if (sc.IdPhong < 0) return (false, "Vui lòng chọn phòng chiếu!");
             if (sc.GiaVe <= 0) return (false, "Giá vé phải lớn hơn 0!");
             if (_dal.IsConflict(sc.IdPhong, sc.ThoiGian, sc.Id))
                 return (false, "Phòng chiếu đã có suất khác trong khung giờ này!");

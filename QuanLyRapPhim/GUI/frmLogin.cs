@@ -38,9 +38,20 @@ namespace QuanLyRapPhim
                     return;
                 }
 
-                var frm = new frmMain(nv);
-                frm.Show();
                 this.Hide();
+                var frm = new frmMain(nv);
+                frm.ShowDialog();
+                
+                if (frm.IsLogout)
+                {
+                    this.Show();
+                    txtMatKhau.Clear();
+                    txtTaiKhoan.Focus();
+                }
+                else
+                {
+                    this.Close();
+                }
             }
             catch (System.Data.SqlClient.SqlException sqlEx)
             {
@@ -71,7 +82,7 @@ namespace QuanLyRapPhim
             if (e.KeyCode == Keys.Enter)
             {
                 txtMatKhau.Focus();
-                e.SuppressKeyPress = true; // tắt tiếng ding
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -79,7 +90,7 @@ namespace QuanLyRapPhim
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true; // tắt tiếng ding
+                e.SuppressKeyPress = true;
                 btnDangNhap_Click(sender, e);
             }
         }

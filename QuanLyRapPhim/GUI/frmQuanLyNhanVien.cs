@@ -11,6 +11,7 @@ namespace QuanLyRapPhim
         private readonly NhanVienBUS _bus = new NhanVienBUS();
         private List<NhanVienDTO> _list;
         private NhanVienDTO _selected;
+        private bool _isClearing = false;
 
         public frmQuanLyNhanVien()
         {
@@ -25,46 +26,42 @@ namespace QuanLyRapPhim
 
         private void LoadLoaiNV()
         {
-            cboLoai.Items.Clear();
-            cboLoai.Items.Add(new LoaiNVDTO { Id = 1, TenLoaiNV = "Quản lý" });
-            cboLoai.Items.Add(new LoaiNVDTO { Id = 2, TenLoaiNV = "Nhân viên" });
+            //obj for load employee types from database
+            var dal = new QuanLyRapPhim.DAL.NhanVienDAL();
+            var loais = dal.GetAllLoaiNV();
+            cboLoai.DataSource = loais;
             cboLoai.DisplayMember = "TenLoaiNV";
             cboLoai.ValueMember = "Id";
-            cboLoai.SelectedIndex = 1;
+            if (cboLoai.Items.Count > 1) cboLoai.SelectedIndex = 1;
         }
 
         private void LoadData()
         {
             _list = _bus.GetAll();
+            dgvNhanVien.AutoGenerateColumns = false;
             dgvNhanVien.DataSource = null;
             dgvNhanVien.DataSource = _list;
-            if (dgvNhanVien.Columns.Count > 0)
-            {
-                dgvNhanVien.Columns["Id"].Visible = false;
-                dgvNhanVien.Columns["IdLoai"].Visible = false;
-                dgvNhanVien.Columns["MatKhau"].Visible = false;
-                dgvNhanVien.Columns["IsQuanLy"].Visible = false;
-                dgvNhanVien.Columns["HoTen"].HeaderText = "Họ Tên";
-                dgvNhanVien.Columns["TaiKhoan"].HeaderText = "Tài Khoản";
-                dgvNhanVien.Columns["TenLoaiNV"].HeaderText = "Loại";
-            }
             lblCount.Text = $"Tổng: {_list.Count} nhân viên";
         }
 
         private void ClearInput()
         {
+            _isClearing = true;
             txtHoTen.Clear();
             txtTaiKhoan.Clear();
             txtMatKhau.Clear();
             cboLoai.SelectedIndex = 1;
             _selected = null;
+            dgvNhanVien.ClearSelection();
             btnThem.Enabled = true;
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
+            _isClearing = false;
         }
 
         private void dgvNhanVien_SelectionChanged(object sender, EventArgs e)
         {
+            if (_isClearing) return;
             if (dgvNhanVien.CurrentRow?.DataBoundItem is NhanVienDTO nv)
             {
                 _selected = nv;
@@ -114,6 +111,6 @@ namespace QuanLyRapPhim
             }
         }
 
-        private void btnLamMoi_Click(object sender, EventArgs e) { ClearInput(); LoadData(); }
+        private void btnLamMoi_Click(object sender, EventArgs e) { LoadData(); ClearInput(); }
     }
 }

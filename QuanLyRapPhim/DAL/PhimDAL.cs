@@ -67,8 +67,15 @@ namespace QuanLyRapPhim.DAL
 
         public bool Delete(int id)
         {
-            return DataProvider.Instance.ExecuteNonQuery("DELETE FROM Phim WHERE id=@Id",
-                new[] { new SqlParameter("@Id", id) }) > 0;
+            try
+            {
+                return DataProvider.Instance.ExecuteNonQuery("DELETE FROM Phim WHERE id=@Id",
+                    new[] { new SqlParameter("@Id", id) }) > 0;
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
         private PhimDTO Map(DataRow row)

@@ -8,6 +8,7 @@ namespace QuanLyRapPhim.BUS
     {
         private readonly NhanVienDAL _dal = new NhanVienDAL();
 
+
         public NhanVienDTO DangNhap(string taiKhoan, string matKhau)
         {
             if (string.IsNullOrWhiteSpace(taiKhoan) || string.IsNullOrWhiteSpace(matKhau))

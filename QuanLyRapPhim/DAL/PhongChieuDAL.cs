@@ -15,15 +15,18 @@ namespace QuanLyRapPhim.DAL
             return list;
         }
 
-        public bool Insert(PhongChieuDTO p)
+        //obj for return new room ID after insert
+        public int Insert(PhongChieuDTO p)
         {
-            string query = "INSERT INTO PhongChieu(TenPhong, SoCho, TinhTrang) VALUES(@TenPhong, @SoCho, @TinhTrang)";
+            string query = @"INSERT INTO PhongChieu(TenPhong, SoCho, TinhTrang) VALUES(@TenPhong, @SoCho, @TinhTrang);
+                             SELECT CAST(SCOPE_IDENTITY() AS INT)";
             SqlParameter[] prms = {
                 new SqlParameter("@TenPhong", p.TenPhong),
                 new SqlParameter("@SoCho", p.SoCho),
                 new SqlParameter("@TinhTrang", p.TinhTrang)
             };
-            return DataProvider.Instance.ExecuteNonQuery(query, prms) > 0;
+            object result = DataProvider.Instance.ExecuteScalar(query, prms);
+            return result != null ? (int)result : 0;
         }
 
         public bool Update(PhongChieuDTO p)
@@ -40,8 +43,15 @@ namespace QuanLyRapPhim.DAL
 
         public bool Delete(int id)
         {
-            return DataProvider.Instance.ExecuteNonQuery("DELETE FROM PhongChieu WHERE id=@Id",
-                new[] { new SqlParameter("@Id", id) }) > 0;
+            try
+            {
+                return DataProvider.Instance.ExecuteNonQuery("DELETE FROM PhongChieu WHERE id=@Id",
+                    new[] { new SqlParameter("@Id", id) }) > 0;
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
         private PhongChieuDTO Map(DataRow row)

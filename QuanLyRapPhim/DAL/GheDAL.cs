@@ -7,7 +7,6 @@ namespace QuanLyRapPhim.DAL
 {
     public class GheDAL
     {
-        /// <summary>Lấy tất cả ghế của một phòng, kèm thông tin loại ghế và trạng thái đặt cho 1 suất chiếu</summary>
         public List<GheDTO> GetByPhong(int idPhong)
         {
             string query = @"SELECT g.id, g.idPhong, g.Hang, g.So, g.idLoaiGhe,

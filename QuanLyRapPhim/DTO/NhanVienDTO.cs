@@ -8,7 +8,6 @@ namespace QuanLyRapPhim.DTO
         public string MatKhau { get; set; }
         public int IdLoai { get; set; }
 
-        // Dùng để hiển thị
         public string TenLoaiNV { get; set; }
 
         public bool IsQuanLy => IdLoai == 1;

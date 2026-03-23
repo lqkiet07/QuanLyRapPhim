@@ -1,5 +1,6 @@
 namespace QuanLyRapPhim.DTO
 {
+
     public class LoaiGheDTO
     {
         public int Id { get; set; }

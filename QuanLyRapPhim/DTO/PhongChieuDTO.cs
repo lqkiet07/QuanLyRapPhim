@@ -1,5 +1,6 @@
 namespace QuanLyRapPhim.DTO
 {
+
     public class PhongChieuDTO
     {
         public int Id { get; set; }

@@ -13,6 +13,24 @@ namespace QuanLyRapPhim.BUS
 
         public List<SuatChieuDTO> GetSuatChieuDangChieu() => _dalSuatChieu.GetDangChieu();
 
+        public List<PhimDTO> GetPhimDangChieu()
+        {
+            var suatChieus = _dalSuatChieu.GetDangChieu();
+            var seen = new HashSet<int>();
+            var phims = new List<PhimDTO>();
+            foreach (var sc in suatChieus)
+            {
+                if (!seen.Contains(sc.IdPhim))
+                {
+                    seen.Add(sc.IdPhim);
+                    phims.Add(new PhimDTO { Id = sc.IdPhim, TenPhim = sc.TenPhim });
+                }
+            }
+            return phims;
+        }
+
+        public List<SuatChieuDTO> GetSuatChieuByPhim(int idPhim) => _dalSuatChieu.GetDangChieuByPhim(idPhim);
+
         public List<GheDTO> GetGheVaSuatChieu(int idSuatChieu, int idPhong)
         {
             var danhSachGhe = _dalGhe.GetByPhong(idPhong);
@@ -41,6 +59,36 @@ namespace QuanLyRapPhim.BUS
             };
             return _dalVe.BanVe(ve) ? (true, "Bán vé thành công!") : (false, "Bán vé thất bại!");
         }
+
+        public (bool success, string message) BanTapTheVe(int idSuatChieu, List<GheDTO> danhSachGhe, int idNhanVien, decimal giaVeGoc)
+        {
+            var gheDaBan = _dalGhe.GetGheDaBan(idSuatChieu);
+            foreach (var ghe in danhSachGhe)
+            {
+                if (gheDaBan.Contains(ghe.Id))
+                    return (false, $"Ghế {ghe.MaGhe} đã được bán ngay trước đó. Vui lòng chọn lại!");
+            }
+
+            int thanhCong = 0;
+            foreach (var ghe in danhSachGhe)
+            {
+                var ve = new VeDTO
+                {
+                    IdSuatChieu = idSuatChieu,
+                    IdGhe = ghe.Id,
+                    IdNhanVien = idNhanVien,
+                    NgayBan = DateTime.Now,
+                    TongTien = giaVeGoc + ghe.PhuPhi
+                };
+                if (_dalVe.BanVe(ve)) thanhCong++;
+            }
+
+            if (thanhCong == danhSachGhe.Count)
+                return (true, $"Bán thành công {thanhCong} vé!");
+            else
+                return (false, $"Chỉ bán được {thanhCong}/{danhSachGhe.Count} vé do lỗi hệ thống SQL!");
+        }
+
 
         public (bool success, string message) HuyVe(int idVe)
         {

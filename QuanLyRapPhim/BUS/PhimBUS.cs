@@ -19,7 +19,7 @@ namespace QuanLyRapPhim.BUS
                 return (false, "Vui lòng nhập tên phim!");
             if (phim.ThoiLuong <= 0)
                 return (false, "Thời lượng phải lớn hơn 0!");
-            if (phim.IdTheLoai <= 0)
+            if (phim.IdTheLoai < 0)
                 return (false, "Vui lòng chọn thể loại!");
             return _dalPhim.Insert(phim) ? (true, "Thêm phim thành công!") : (false, "Thêm phim thất bại!");
         }
@@ -30,7 +30,7 @@ namespace QuanLyRapPhim.BUS
                 return (false, "Vui lòng nhập tên phim!");
             if (phim.ThoiLuong <= 0)
                 return (false, "Thời lượng phải lớn hơn 0!");
-            if (phim.IdTheLoai <= 0)
+            if (phim.IdTheLoai < 0)
                 return (false, "Vui lòng chọn thể loại!");
             return _dalPhim.Update(phim) ? (true, "Cập nhật phim thành công!") : (false, "Cập nhật thất bại!");
         }

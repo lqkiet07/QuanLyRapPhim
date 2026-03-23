@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using QuanLyRapPhim.DTO;
 
+
 namespace QuanLyRapPhim.DAL
 {
     public class VeDAL

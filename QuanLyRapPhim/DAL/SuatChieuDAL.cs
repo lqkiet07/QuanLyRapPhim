@@ -37,6 +37,21 @@ namespace QuanLyRapPhim.DAL
             return list;
         }
 
+        public List<SuatChieuDTO> GetDangChieuByPhim(int idPhim)
+        {
+            string query = @"SELECT sc.id, sc.idPhim, sc.idPhong, sc.GiaVe, sc.TrangThai, sc.ThoiGian,
+                                    p.TenPhim, pc.TenPhong
+                             FROM SuatChieu sc
+                             JOIN Phim p ON sc.idPhim = p.id
+                             JOIN PhongChieu pc ON sc.idPhong = pc.id
+                             WHERE sc.TrangThai = 1 AND sc.idPhim = @IdPhim
+                             ORDER BY sc.ThoiGian";
+            DataTable dt = DataProvider.Instance.ExecuteQuery(query, new[] { new SqlParameter("@IdPhim", idPhim) });
+            var list = new List<SuatChieuDTO>();
+            foreach (DataRow row in dt.Rows) list.Add(Map(row));
+            return list;
+        }
+
         public bool Insert(SuatChieuDTO sc)
         {
             string query = @"INSERT INTO SuatChieu(idPhim, idPhong, GiaVe, TrangThai, ThoiGian)
@@ -68,8 +83,15 @@ namespace QuanLyRapPhim.DAL
 
         public bool Delete(int id)
         {
-            return DataProvider.Instance.ExecuteNonQuery("DELETE FROM SuatChieu WHERE id=@Id",
-                new[] { new SqlParameter("@Id", id) }) > 0;
+            try
+            {
+                return DataProvider.Instance.ExecuteNonQuery("DELETE FROM SuatChieu WHERE id=@Id",
+                    new[] { new SqlParameter("@Id", id) }) > 0;
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
         /// <summary>Kiểm tra xung đột: cùng phòng, thời gian chênh lệch < 3 tiếng</summary>

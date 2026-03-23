@@ -11,6 +11,7 @@ namespace QuanLyRapPhim
         private readonly SuatChieuBUS _bus = new SuatChieuBUS();
         private List<SuatChieuDTO> _list;
         private SuatChieuDTO _selected;
+        private bool _isClearing = false;
 
         public frmQuanLySuatChieu()
         {
@@ -35,38 +36,32 @@ namespace QuanLyRapPhim
         private void LoadData()
         {
             _list = _bus.GetAll();
+            dgvSuatChieu.AutoGenerateColumns = false;
             dgvSuatChieu.DataSource = null;
             dgvSuatChieu.DataSource = _list;
-            if (dgvSuatChieu.Columns.Count > 0)
-            {
-                dgvSuatChieu.Columns["Id"].Visible = false;
-                dgvSuatChieu.Columns["IdPhim"].Visible = false;
-                dgvSuatChieu.Columns["IdPhong"].Visible = false;
-                dgvSuatChieu.Columns["TrangThai"].Visible = false;
-                dgvSuatChieu.Columns["TenPhim"].HeaderText = "Phim";
-                dgvSuatChieu.Columns["TenPhong"].HeaderText = "Phòng Chiếu";
-                dgvSuatChieu.Columns["ThoiGian"].HeaderText = "Thời Gian";
-                dgvSuatChieu.Columns["GiaVe"].HeaderText = "Giá Vé";
-                dgvSuatChieu.Columns["TrangThaiText"].HeaderText = "Trạng Thái";
-            }
+            dgvSuatChieu.Refresh();
             lblCount.Text = $"Tổng: {_list.Count} suất chiếu";
         }
 
         private void ClearInput()
         {
+            _isClearing = true;
             if (cboPhim.Items.Count > 0) cboPhim.SelectedIndex = 0;
             if (cboPhong.Items.Count > 0) cboPhong.SelectedIndex = 0;
             txtGiaVe.Clear();
             dtpThoiGian.Value = DateTime.Now.AddDays(1);
             chkDangChieu.Checked = true;
             _selected = null;
+            dgvSuatChieu.ClearSelection();
             btnThem.Enabled = true;
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
+            _isClearing = false;
         }
 
         private void dgvSuatChieu_SelectionChanged(object sender, EventArgs e)
         {
+            if (_isClearing) return;
             if (dgvSuatChieu.CurrentRow?.DataBoundItem is SuatChieuDTO sc)
             {
                 _selected = sc;
@@ -117,6 +112,6 @@ namespace QuanLyRapPhim
             }
         }
 
-        private void btnLamMoi_Click(object sender, EventArgs e) { ClearInput(); LoadData(); }
+        private void btnLamMoi_Click(object sender, EventArgs e) { LoadData(); ClearInput(); }
     }
 }

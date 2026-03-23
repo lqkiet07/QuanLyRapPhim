@@ -30,10 +30,6 @@ namespace QuanLyRapPhim
             new frmQuanLyPhim().ShowDialog();
         }
 
-        private void btnQuanLyPhong_Click(object sender, EventArgs e)
-        {
-            new frmQuanLyPhongChieu().ShowDialog();
-        }
 
         private void btnQuanLySuatChieu_Click(object sender, EventArgs e)
         {
@@ -50,14 +46,21 @@ namespace QuanLyRapPhim
             new frmQuanLyNhanVien().ShowDialog();
         }
 
+        public bool IsLogout { get; private set; } = false;
+
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Xác nhận",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                new frmLogin().Show();
+                IsLogout = true;
                 this.Close();
             }
+        }
+
+        private void lblWelcome_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -14,6 +14,7 @@ namespace QuanLyRapPhim.DAL
 
         private DataProvider() { }
 
+
         public static DataProvider Instance
         {
             get

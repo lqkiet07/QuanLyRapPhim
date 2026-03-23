@@ -32,6 +32,16 @@ namespace QuanLyRapPhim.DAL
             return list;
         }
 
+        //obj for load employee types from database
+        public List<LoaiNVDTO> GetAllLoaiNV()
+        {
+            DataTable dt = DataProvider.Instance.ExecuteQuery("SELECT id, TenLoaiNV FROM LoaiNV ORDER BY id");
+            var list = new List<LoaiNVDTO>();
+            foreach (DataRow row in dt.Rows)
+                list.Add(new LoaiNVDTO { Id = (int)row["id"], TenLoaiNV = row["TenLoaiNV"].ToString() });
+            return list;
+        }
+
         public bool Insert(NhanVienDTO nv)
         {
             string query = "INSERT INTO NhanVien(HoTen, TaiKhoan, MatKhau, idLoai) VALUES(@HoTen, @TaiKhoan, @MatKhau, @IdLoai)";
@@ -59,8 +69,15 @@ namespace QuanLyRapPhim.DAL
 
         public bool Delete(int id)
         {
-            string query = "DELETE FROM NhanVien WHERE id = @Id";
-            return DataProvider.Instance.ExecuteNonQuery(query, new[] { new SqlParameter("@Id", id) }) > 0;
+            try
+            {
+                string query = "DELETE FROM NhanVien WHERE id = @Id";
+                return DataProvider.Instance.ExecuteNonQuery(query, new[] { new SqlParameter("@Id", id) }) > 0;
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
         public bool IsTaiKhoanExist(string taiKhoan, int excludeId = 0)
